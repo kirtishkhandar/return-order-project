@@ -1,5 +1,5 @@
 How to run:
-1. Impost as maven project in IDE
+1. Import as maven project in IDE
 3. update the git repo location in config server's properties file
 2. Run all microservices in sequence... eureka, config, gateway ... remaining.
 
