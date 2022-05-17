@@ -1,0 +1,92 @@
+<div class="container">
+<div class="alert alert-warning" *ngIf="!isLoggedIn">
+    <strong>Warning!</strong> Please sign in to view the content.
+</div>
+
+
+<div *ngIf="!paymentSuccess">
+  <p>request id is : {{requestId}}</p>
+  <div>
+    <form class="form-group"
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    >
+      <div class="form-group">
+        <label for="requestId">RequestId:</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        name="requestId" 
+        placeholder={{requestId}}
+        [(ngModel)]="form.requestId">
+      </div>
+      <div class="form-group">
+        <label for="cardNumber">Credit Card Number:</label>
+        <input 
+        type="number" 
+        class="form-control" 
+        name="cardNumber"
+        [(ngModel)]="form.cardNumber">
+      </div>
+      <div class="form-group">
+        <label for="cardLimit">Credit Card Limit:</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        name="cardLimit"
+        [(ngModel)]="form.cardLimit">
+      </div>
+      <div class="form-group">
+        <label for="processingCharge">Processing Charge:</label>
+        <input 
+        type="number" 
+        class="form-control" 
+        name="processingCharge"
+        value="{{processingCharge}}"
+        [(ngModel)]="form.processingCharge">
+      </div>
+      <div class="form-group">
+        <label for="pakadgingAndDeliveryCharge">Pakadging and Delivery Charge:</label>
+        <input 
+        type="number" 
+        class="form-control" 
+        name="pakadgingAndDeliveryCharge"
+        value="{{pakadgingAndDeliveryCharge}}"
+        [(ngModel)]="form.pakadgingAndDeliveryCharge">
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg" >Pay</button>
+      <div class="alert alert-warning" *ngIf="f.submitted && requestFailed">
+        Failed to create a request!<br />{{ errorMessage }}
+      </div>
+    </form>
+  </div> 
+</div>
+
+<div *ngIf="paymentSuccess" class="jumbotron">
+  <p>Congratulations your payment is successful !!!</p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Request ID</th>
+        <th>{{requestId}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Payment ID</td>
+        <td>{{paymentId}}</td>
+      </tr>
+      <tr>
+        <td>Processing Charge</td>
+        <td>{{processingCharge}}</td>
+      </tr>
+      <tr>
+        <td>Pakadging And Delivery Charge</td>
+        <td>{{pakadgingAndDeliveryCharge}}</td>
+      </tr>
+    </tbody>
+  </table> 
+  <a href="#"><button class="btn btn-primary btn-lg"  >Return to Homepage</button></a> 
+</div>

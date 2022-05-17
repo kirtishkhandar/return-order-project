@@ -1,0 +1,160 @@
+<div class="alert alert-warning" *ngIf="!isLoggedIn">
+  <strong>Warning!</strong> Please sign in to view the content.
+</div>
+
+<div *ngIf="isLoggedIn">
+  <div class="container">
+    <header class="jumbotron">
+      <p> {{process_status}}</p>
+      <div class="progress-bar progress-bar-striped active" role="progressbar"
+      aria-valuenow="status_percent" aria-valuemin="0" aria-valuemax="100" style="width:{{status_percent}}%">
+        {{status_percent}}%
+      </div>
+    </header>
+
+    <div *ngIf="process=='request'">
+
+      <form class="form-group"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      >
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input 
+          type="text" 
+          class="form-control" 
+          name="name" 
+          [disabled] ="gotdetails"
+          [(ngModel)]="form.name"
+          required
+          minlength="3"
+          #name="ngModel">
+          <div class="alert-danger" *ngIf="number.errors && f.submitted">
+            <div *ngIf="number.errors['required']">Name is required</div>
+            <div *ngIf="number.errors['minlength']">
+              Name must be at least 4 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="number">Contact Number:</label>
+          <input 
+          type="text" 
+          class="form-control" 
+          name="number"
+          [disabled] ="gotdetails" 
+          [(ngModel)]="form.number"
+          required
+          minlength="10"
+          maxlength="11"
+          #number="ngModel">
+          <div class="alert-danger" *ngIf="number.errors && f.submitted">
+            <div *ngIf="number.errors['required']">Number is required</div>
+            <div *ngIf="number.errors['minlength']">
+              Number must be at least 10 characters
+            </div>
+            <div *ngIf="number.errors['maxlength']">
+              Number must be at most 11 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="comp_type">Component Type:</label>
+          <select 
+          class="form-control" 
+          name="comp_type" 
+          [disabled] ="gotdetails"
+          [(ngModel)]="form.comp_type"
+          required
+          #comp_type="ngModel">
+            <option disabled>Choose option</option>
+            <option>Accessory</option>
+            <option>Integral</option>
+          </select>
+          <div class="alert-danger" *ngIf="comp_type.errors && f.submitted">
+            <div *ngIf="comp_type.errors['required']">Component Type is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="comp_name">Component Name:</label>
+          <input 
+          type="text" 
+          class="form-control" 
+          name="comp_name"
+          [disabled] ="gotdetails"
+          [(ngModel)]="form.comp_name">
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input 
+          type="text" 
+          class="form-control" 
+          name="quantity"
+          [disabled] ="gotdetails"
+          [(ngModel)]="form.quantity"
+          required
+          min="1"
+          max="999"
+          #quantity="ngModel">
+          <div class="alert-danger" *ngIf="quantity.errors && f.submitted">
+            <div *ngIf="quantity.errors['required']">Quantity is required</div>
+            <div *ngIf="quantity.errors['min']">
+              Quantity must be at least 1
+            </div>
+            <div *ngIf="quantity.errors['max']">
+              Quantity must be at most 999
+            </div>
+          </div>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox"> Priority request</label>
+        </div>
+        <button type="submit" class="btn btn-default" [disabled]="gotdetails">Submit</button>
+        <div class="alert alert-warning" *ngIf="f.submitted && requestFailed">
+          Failed to create a request!<br />{{ errorMessage }}
+        </div>
+      </form>
+    </div> 
+
+    <div *ngIf="process=='charges'">
+      <p>Response</p>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Request ID</th>
+            <th>{{requestId}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Processing Charge</td>
+            <td>{{processingCharge}}</td>
+          </tr>
+          <tr>
+            <td>Pakadging And Delivery Charge</td>
+            <td>{{pakadgingAndDeliveryCharge}}</td>
+          </tr>
+          <tr>
+            <td>Date Of Delivery</td>
+            <td>{{dateOfDelivery}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="btn-toolbar">
+        <button type="button" style='margin-right:16px' class="btn btn-success" (click)="onPayment()">Proceed to Payment</button>
+        <a href="#"><button type="button" class="btn btn-info">Reset</button></a>
+      </div>
+      
+    </div>
+
+    <div *ngIf="process=='payment'">
+      <app-payment 
+      [requestId]="requestId" 
+      [processingCharge]="processingCharge"
+      [pakadgingAndDeliveryCharge]="pakadgingAndDeliveryCharge"
+      (onPaymentDone)="paymentStatus($event)"></app-payment>
+    </div>
+
+  <div>
+</div>
