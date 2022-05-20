@@ -40,7 +40,10 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
-        this.router.navigate(['home']);
+        setTimeout(() => {
+        window.location.href="home";
+        }
+        ,750);
       },
       error: err => {
         this.errorMessage = err.error.message;
