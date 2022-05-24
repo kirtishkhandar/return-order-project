@@ -45,7 +45,6 @@ public class RepairProcessing implements ProcessingService {
 		processEntity.setProcessingCharge(config.getRepairProcessingCharge());
 		processEntity.setDateOfDelivery(date);
 		processEntity.setPakadgingAndDeliveryCharge(proxy.getDetails(request.getComponentType(), request.getQuantity()));
-		System.out.println(proxy.getDetails(request.getComponentType(), request.getQuantity()));
 		logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Repair"+ proxy.getDetails(request.getComponentType(), request.getQuantity()));
 
 		ProcessResponse processResponse = new ProcessResponse();

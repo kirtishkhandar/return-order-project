@@ -2,8 +2,6 @@ package com.returnordermanagementsystem.authorizationservice.security.jwt;
 
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -11,11 +9,15 @@ import org.springframework.stereotype.Component;
 import com.returnordermanagementsystem.authorizationservice.exception.TokenInvalidException;
 import com.returnordermanagementsystem.authorizationservice.security.services.UserDetailsImpl;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtUtils {
-  private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
   @Value("${authorization-service.app.jwtSecret}")
   private String jwtSecret;
@@ -44,20 +46,15 @@ public class JwtUtils {
       Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
       return true;
     } catch (SignatureException e) {
-        logger.error("Invalid JWT signature: {}", e.getMessage());
         throw new TokenInvalidException("Invalid JWT signature: " + e.getMessage());
     } catch (MalformedJwtException e) {
-    	logger.error("Invalid JWT token: {}", e.getMessage());
-        throw new TokenInvalidException("Invalid JWT signature: " + e.getMessage());
+        throw new TokenInvalidException("Invalid JWT token: " + e.getMessage());
     } catch (ExpiredJwtException e) {
-    	logger.error("JWT token is expired: {}", e.getMessage());
-        throw new TokenInvalidException("Invalid JWT signature: " + e.getMessage());
+        throw new TokenInvalidException("JWT token expired: " + e.getMessage());
     } catch (UnsupportedJwtException e) {
-    	logger.error("JWT token is unsupported: {}", e.getMessage());
-        throw new TokenInvalidException("Invalid JWT signature: " + e.getMessage());
+        throw new TokenInvalidException("Unsupported JWT token: " + e.getMessage());
     } catch (IllegalArgumentException e) {
-    	logger.error("JWT claims string is empty: {}", e.getMessage());
-        throw new TokenInvalidException("Invalid JWT signature: " + e.getMessage());
+        throw new TokenInvalidException("JWT string empty: " + e.getMessage());
     }
   }
 }
