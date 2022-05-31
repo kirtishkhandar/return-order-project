@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.returnordermanagementsystem.packaginganddeliverymodule.PackagingAndDeliveryService;
+import com.returnordermanagementsystem.packaginganddeliverymodule.services.PackagingAndDeliveryService;
 
 @RestController
 public class Controller {

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.returnordermanagementsystem.packaginganddeliverymodule.services.PackagingAndDeliveryService;
+
 @SpringBootTest
 class PackagingAndDeliveryModuleApplicationTests {
 	
@@ -13,12 +15,12 @@ class PackagingAndDeliveryModuleApplicationTests {
 	PackagingAndDeliveryService service;
 	
 	@Test
-	public void testIntegral() {
+	void testIntegral() {
 		assertEquals(3500, service.getCharge("Integral", 10));
 	}
 	
 	@Test
-	public void testAccessory() {
+	void testAccessory() {
 		assertEquals(2000, service.getCharge("Accessory", 10));
 	}
 

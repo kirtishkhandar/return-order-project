@@ -47,7 +47,7 @@ public class ReplacementProcessing implements ProcessingService {
 		processEntity
 				.setPakadgingAndDeliveryCharge(proxy.getDetails(request.getComponentType(), request.getQuantity()));
 
-		logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Replacement");
+		logger.info("Inside Replacement Service. Component type:"+request.getComponentType()+ "Request Quantity"+ request.getQuantity());
 
 		ProcessResponse processResponse = new ProcessResponse();
 		BeanUtils.copyProperties(processEntity, processResponse);

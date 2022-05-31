@@ -45,7 +45,7 @@ public class RepairProcessing implements ProcessingService {
 		processEntity.setProcessingCharge(config.getRepairProcessingCharge());
 		processEntity.setDateOfDelivery(date);
 		processEntity.setPakadgingAndDeliveryCharge(proxy.getDetails(request.getComponentType(), request.getQuantity()));
-		logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Repair"+ proxy.getDetails(request.getComponentType(), request.getQuantity()));
+		logger.info("Inside Repair Service. Component type:"+request.getComponentType()+ "Request Quantity"+ request.getQuantity());
 
 		ProcessResponse processResponse = new ProcessResponse();
 		BeanUtils.copyProperties(processEntity, processResponse);

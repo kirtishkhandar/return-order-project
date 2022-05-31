@@ -41,11 +41,10 @@ public class PaymentService {
 				return paymentResponse;
 			}
 			else
-				throw new RuntimeException("Incorrect ProcessingCharge");
-
+				throw new IllegalArgumentException(String.format("Incorrect ProcessingCharge: %d", request.getProcessingCharge()));
 		}
 		else 
-			throw new RuntimeException("Request ID does not exist");
+			throw new IllegalArgumentException(String.format("Request ID: %s does not exist", request.getRequestId()));
 	}
 
 }

@@ -18,7 +18,7 @@ import com.returnordermanagementsystem.authorizationservice.payload.request.Logi
 import com.returnordermanagementsystem.authorizationservice.payload.request.SignupRequest;
 
 
-public class AuthControllerTests extends AuthorizationServiceApplicationTests {
+class AuthControllerTests extends AuthorizationServiceApplicationTests {
 
 	   @Override
 	   @Before
@@ -28,7 +28,7 @@ public class AuthControllerTests extends AuthorizationServiceApplicationTests {
 	   
 	   @Test
 	   @Order(1)
-	   public void signupTest() throws Exception {
+	   void signupTest() throws Exception {
 		  mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	      String uri = "/auth/signup";
 	      SignupRequest signupRequest = new SignupRequest();
@@ -51,7 +51,7 @@ public class AuthControllerTests extends AuthorizationServiceApplicationTests {
 		
 		  @Test
 		  @Order(2) 
-		  public void loginTest() throws Exception { 
+		  void loginTest() throws Exception { 
 			  mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 			  
 			  String uri1 = "/auth/signup";

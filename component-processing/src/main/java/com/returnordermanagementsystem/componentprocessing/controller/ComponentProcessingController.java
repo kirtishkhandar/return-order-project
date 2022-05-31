@@ -42,10 +42,10 @@ public class ComponentProcessingController {
 			return replacementService.getDetails(request);
 		
 		else
-			throw new RuntimeException("Wrong ComponentType");
+			throw new IllegalArgumentException(String.format("Wrong ComponentType"));
 		}
 		else 
-			throw new RuntimeException("Invalid Token");
+			throw new IllegalArgumentException(String.format("Invalid Token"));
 	}
 
 	@PostMapping("/CompleteProcessing")
@@ -53,7 +53,7 @@ public class ComponentProcessingController {
 		if(authProxy.validateToken(token))
 			return paymentService.makePayment(request);
 		else 
-			throw new RuntimeException("Invalid Token");
+			throw new IllegalArgumentException(String.format("Invalid Token"));
 
 	}
 

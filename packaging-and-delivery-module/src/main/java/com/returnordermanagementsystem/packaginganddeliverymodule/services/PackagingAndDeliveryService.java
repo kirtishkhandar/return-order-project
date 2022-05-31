@@ -1,7 +1,9 @@
-package com.returnordermanagementsystem.packaginganddeliverymodule;
+package com.returnordermanagementsystem.packaginganddeliverymodule.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.returnordermanagementsystem.packaginganddeliverymodule.config.Configuration;
 
 @Service
 public class PackagingAndDeliveryService {
@@ -19,7 +21,7 @@ public class PackagingAndDeliveryService {
 					+ config.getProtectiveSheithPackaging()) * count;
 		
 		else
-			throw new RuntimeException("Wrong Component Type: " + componentType);
+			throw new IllegalArgumentException(String.format("Wrong Component Type: %s ", componentType));
 
 	}
 
